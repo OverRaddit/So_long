@@ -1,57 +1,66 @@
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror
+#CFLAGS = -Wall -Wextra -Werror -g
+CFLAGS = -Wall -g
 
-SERVER = server
-CLIENT = client
-B_SERVER = b_server
-B_CLIENT = b_client
-LIBFT = include/libft
-LIBFT_LIB = libft.a
+NAME = server
+B_NAME = b_server
 
-LIBS = -Linclude/libft -lft
+SRCS_DIR = ./src
+SRCS = src/main.c src/so_long_init.c src/so_long_game.c
+SRCS_BONUS = src/server_bonus.c
+OBJS = $(SRCS:.c=.o)
+BONUS_OBJS = $(SRCS_BONUS:.c=.o)
 
-S_FILES = src_server/server.c
-S_BONUS_FILES = src_server/server_bonus.c
-S_OBJS = $(S_FILES:.c=.o)
-S_BONUS_OBJS = $(S_BONUS_FILES:.c=.o)
-C_FILES = src_client/client.c
-C_BONUS_FILES = src_client/client_bonus.c
-C_OBJS = $(C_FILES:.c=.o)
-C_BONUS_OBJS = $(C_BONUS_FILES:.c=.o)
+# 외부라이브러리 모음 =================================================
+LIB_NAME = ft
+LIB_DIR = ./include/libft
+LIB = $(addprefix $(LIB_DIR)/, libft.a)
 
-all : $(LIBFT_LIB) $(SERVER) $(CLIENT)
+MLX_NAME = mlx
+MLX_DIR = ./include/minilibx_mms_20210621
+MLX = $(addprefix $(MLX_DIR)/, libmlx.dylib)	# MLX/DIR/libmlx.a를 생성
 
-$(LIBFT_LIB) :
-	make all -C $(LIBFT)
+GNL_NAME = gnl
+GNL_DIR = ./include/gnl
+GNL = $(addprefix $(GNL_DIR)/, libgnl.a)
 
-$(SERVER) : $(S_OBJS)
-	gcc ${CFLAGS} -o ${SERVER} ${S_OBJS} ${LIBS}
+DA_NAME = da
+DA_DIR = ./include/dynamic_array
+DA = $(addprefix $(DA_DIR)/, libda.a)
+# 외부라이브러리 모음 ===================================================
 
-$(CLIENT) : $(C_OBJS)
-	gcc ${CFLAGS} -o ${CLIENT} ${C_OBJS} ${LIBS}
+$(NAME) : $(OBJS)
+	$(MAKE) -C $(LIB_DIR) bonus
+	$(MAKE) -C $(MLX_DIR) all
+	$(MAKE) -C $(GNL_DIR) all
+	$(MAKE) -C $(DA_DIR) all
+	$(CC) $(CFLAGS) -L$(LIB_DIR) -l$(LIB_NAME) -L$(MLX_DIR) -l$(MLX_NAME) \
+			-L$(GNL_DIR) -l$(GNL_NAME) -L$(DA_DIR) -l$(DA_NAME) \
+			-framework OpenGL -framework AppKit $^ -o $@
+	@install_name_tool -change libmlx.dylib ./include/minilibx_mms_20210621/libmlx.dylib $(NAME)
 
-$(B_SERVER) : $(S_BONUS_OBJS)
-	gcc ${CFLAGS} -o ${B_SERVER} ${S_BONUS_OBJS} ${LIBS}
+$(SRCS_DIR)/%.o : $(SRCS_DIR)/%.c
+	$(CC) $(CFLAGS) -I$(MLX_DIR) -I$(LIB_DIR) -I$(GNL_DIR) -c $< -o $@
 
-$(B_CLIENT) : $(C_BONUS_OBJS)
-	gcc ${CFLAGS} -o ${B_CLIENT} ${C_BONUS_OBJS} ${LIBS}
+all : $(NAME)
+
 
 clean :
-	rm -f $(S_OBJS)
-	rm -f $(C_OBJS)
-	rm -f $(S_BONUS_OBJS)
-	rm -f $(C_BONUS_OBJS)
-	make clean -C $(LIBFT)
+	rm -rf $(OBJS)
+	$(MAKE) -C $(LIB_DIR) clean
+	$(MAKE) -C $(MLX_DIR) clean
+	$(MAKE) -C $(GNL_DIR) clean
+	$(MAKE) -C $(DA_DIR) clean
 
-fclean : clean
-	rm ${SERVER}
-	rm ${CLIENT}
-	rm -f $(B_SERVER)
-	rm -f $(B_CLIENT)
-	make fclean -C $(LIBFT)
+fclean :
+	rm -rf $(NAME) $(OBJS)
+	$(MAKE) -C $(LIB_DIR) fclean
+#	$(MAKE) -C $(MLX_DIR) fclean
+	$(MAKE) -C $(GNL_DIR) fclean
+	$(MAKE) -C $(DA_DIR) fclean
 
 re : fclean all
 
-bonus : $(LIBFT_LIB) $(B_SERVER) $(B_CLIENT)
+#bonus : $(LIBFT_LIB) $(B_SERVER)
 
 .PHONY : all clean fclean re bonus
