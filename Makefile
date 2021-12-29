@@ -1,15 +1,15 @@
 CC = gcc
-#CFLAGS = -Wall -Wextra -Werror -g
-CFLAGS = -Wall -g
+CFLAGS = -Wall -Wextra -Werror -g
+#CFLAGS = -Wall -g
 
-NAME = server
-B_NAME = b_server
+NAME = so_long
+#B_NAME = bonus_so_long
 
 SRCS_DIR = ./src
 SRCS = src/main.c src/so_long_init.c src/so_long_game.c
-SRCS_BONUS = src/server_bonus.c
+#SRCS_BONUS = src/bonus_so_long.c
 OBJS = $(SRCS:.c=.o)
-BONUS_OBJS = $(SRCS_BONUS:.c=.o)
+#BONUS_OBJS = $(SRCS_BONUS:.c=.o)
 
 # 외부라이브러리 모음 =================================================
 LIB_NAME = ft

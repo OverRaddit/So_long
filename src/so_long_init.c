@@ -6,7 +6,7 @@
 /*   By: gshim <gshim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/07 09:31:27 by gshim             #+#    #+#             */
-/*   Updated: 2021/10/08 00:51:34 by gshim            ###   ########.fr       */
+/*   Updated: 2021/12/29 10:38:14 by gshim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	game_init(t_game *game, char *filename)
 	vec = vec_init();
 	fd = open(filename, O_RDONLY);
 	if (fd == -1)
-		closed(0, 2);
+		closed(2);
 	get_next_line(fd, &line);
 	append(vec, line);
 	while (*line != '\0')
@@ -33,7 +33,7 @@ void	game_init(t_game *game, char *filename)
 	if (validate_map(vec, game) < 0)
 	{
 		arr_free(vec);
-		closed(game, 0);
+		closed(0);
 	}
 	game->map = vec->arr;
 	free(vec);

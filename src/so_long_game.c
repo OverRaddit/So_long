@@ -6,7 +6,7 @@
 /*   By: gshim <gshim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/28 14:32:49 by gshim             #+#    #+#             */
-/*   Updated: 2021/10/08 00:51:39 by gshim            ###   ########.fr       */
+/*   Updated: 2021/12/29 10:37:04 by gshim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	move(t_game *game, int x2, int y2)
 		game->point++;
 	}
 	else if (game->map[y2][x2] == 'E' && game->point == game->goal)
-		closed(game, 1);
+		closed(1);
 	if (game->map[game->pos_y][game->pos_x] == '0' ||
 			game->map[game->pos_y][game->pos_x] == 'C')
 		mlx_put_image_to_window_scale(game->mlx, game->win, game->tile.img,
@@ -51,7 +51,7 @@ static void	print_status(t_game *game)
 int	deal_key(int key_code, t_game *game)
 {
 	if (key_code == KEY_ESC)
-		closed(game, 3);
+		closed(3);
 	if (key_code == KEY_UP || key_code == KEY_W)
 		move(game, game->pos_x, game->pos_y - 1);
 	else if (key_code == KEY_DOWN || key_code == KEY_S)
@@ -67,7 +67,7 @@ int	deal_key(int key_code, t_game *game)
 	return (0);
 }
 
-int	closed(t_game *game, int flag)
+int	closed(int flag)
 {
 	if (flag == 0)
 		ft_putstr_fd("MAP ERROR\n", 1);

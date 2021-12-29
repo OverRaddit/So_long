@@ -57,7 +57,7 @@ typedef struct s_game
 
 # define TILE_SIZE 64
 
-int		closed(t_game *game, int flag);
+int		closed(int flag);
 void	draw_background(t_game *game);
 void	move(t_game *game, int x2, int y2);
 int		deal_key(int key_code, t_game *game);
