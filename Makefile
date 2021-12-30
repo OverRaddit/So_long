@@ -55,7 +55,7 @@ clean :
 fclean :
 	rm -rf $(NAME) $(OBJS)
 	$(MAKE) -C $(LIB_DIR) fclean
-#	$(MAKE) -C $(MLX_DIR) fclean
+	$(MAKE) -C $(MLX_DIR) clean
 	$(MAKE) -C $(GNL_DIR) fclean
 	$(MAKE) -C $(DA_DIR) fclean
 
