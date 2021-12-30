@@ -6,7 +6,7 @@ NAME = so_long
 #B_NAME = bonus_so_long
 
 SRCS_DIR = ./src
-SRCS = src/main.c src/so_long_init.c src/so_long_game.c
+SRCS = src/main.c src/so_long_init.c src/so_long_game.c src/so_long_validate.c
 #SRCS_BONUS = src/bonus_so_long.c
 OBJS = $(SRCS:.c=.o)
 #BONUS_OBJS = $(SRCS_BONUS:.c=.o)

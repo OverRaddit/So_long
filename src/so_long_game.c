@@ -6,7 +6,7 @@
 /*   By: gshim <gshim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/28 14:32:49 by gshim             #+#    #+#             */
-/*   Updated: 2021/12/29 10:37:04 by gshim            ###   ########.fr       */
+/*   Updated: 2021/12/30 12:38:13 by gshim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,31 +78,4 @@ int	closed(int flag)
 	else if (flag == 3)
 		ft_putstr_fd("EXIT KEY PRESSED\n", 1);
 	exit(0);
-}
-
-int	validate_map(t_vector *vec, t_game *game)
-{
-	int	row;
-	int	col;
-	int	i;
-
-	col = ft_strlen(vec->arr[0]);
-	row = vec->size - 1;
-	i = -1;
-	while (++i < row)
-	{
-		if (col != (int)ft_strlen(vec->arr[i]))
-			return (-1);
-		if (vec->arr[i][0] != '1' || vec->arr[i][col - 1] != '1')
-			return (-2);
-	}
-	i = -1;
-	while (++i < col)
-	{
-		if (vec->arr[0][i] != '1' || vec->arr[row - 1][i] != '1')
-			return (-4);
-	}
-	game->ROW = row;
-	game->COL = col;
-	return (0);
 }

@@ -62,6 +62,7 @@ void	draw_background(t_game *game);
 void	move(t_game *game, int x2, int y2);
 int		deal_key(int key_code, t_game *game);
 int		validate_map(t_vector *vec, t_game *game);
+int		validate_map2(t_vector *vec, t_game *game);
 void	game_init(t_game *game, char *filename);
 void	window_init(t_game *game);
 void	img_init(t_game *game);

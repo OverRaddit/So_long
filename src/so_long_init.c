@@ -6,7 +6,7 @@
 /*   By: gshim <gshim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/07 09:31:27 by gshim             #+#    #+#             */
-/*   Updated: 2021/12/29 10:38:14 by gshim            ###   ########.fr       */
+/*   Updated: 2021/12/30 12:50:55 by gshim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	game_init(t_game *game, char *filename)
 		append(vec, line);
 	}
 	close(fd);
-	if (validate_map(vec, game) < 0)
+	if (validate_map(vec, game) < 0 || validate_map2(vec, game) < 0)
 	{
 		arr_free(vec);
 		closed(0);
